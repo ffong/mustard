@@ -1,3 +1,19 @@
-body {
-	background-color: pink;
+.search-box, .play-box {
+	height:	85%;
+	padding: 20px 10px;
+}
+
+
+.search-box {
+	border-right:	1px solid black;
+}
+
+/* main serach bar */
+.search-box > .input-group {
+	max-width: 70%;
+	margin: 0 auto;
+}
+
+.play-box {
+
 }
