@@ -7,6 +7,7 @@
 
 		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-default" role="navigation">
@@ -29,12 +30,34 @@
 		</nav>
 		
 		<div class="col-md-8 search-box">
-			<div class="input-group">
-				<input tpye="search" class="form-control">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Search</button>
-				</span>
+			<form action="search" method="post">
+				<div class="input-group">
+					<input name="query" type="search" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">Search</button>
+					</span>
+				</div>
+			</form>
+			{% if search_results %}
+			<div class="search_results">
+				<h3>Search Results</h3>
+				<ul class="list-group">
+				{% for result in search_results %}
+				    <li class="list-group-item">
+				    	<img src="{{ result['image'] }}" title="{{ result['description'] }}">
+				    	<span>{{ result['title'] }}</span>
+				    	<a href="http://youtu.be/{{ result['videoId'] }}">
+				    		<button class="btn btn-default btn-xs">Watch on YouTube</button>
+				    	</a>
+				    	<button class="btn btn-default btn-xs add-song">
+				    		 <span class="glyphicon glyphicon-plus" alt="{{ result['videoId'] }}"></span>
+				    		 Add
+				    	</button>
+				    </li>
+				{% endfor %}
+				</ul>
 			</div>
+			{% endif %}
 		</div>
 
 		<div class="col-md-4 play-box">

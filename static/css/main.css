@@ -1,3 +1,7 @@
+body {
+	overflow: hidden;
+}
+
 .search-box, .play-box {
 	height:	85%;
 	padding: 20px 10px;
@@ -8,10 +12,26 @@
 	border-right:	1px solid black;
 }
 
-/* main serach bar */
+/* main search bar */
 .search-box > .input-group {
 	max-width: 70%;
 	margin: 0 auto;
+}
+
+.search_results {
+	overflow-y:	auto;
+	height:	100%; 
+}
+
+.list-group-item > span {
+	display: inline-block;
+	vertical-align: top;
+	max-width: 480px;
+}
+
+.list-group-item button {
+	float:	right;
+	display: inline-block;
 }
 
 .play-box {
