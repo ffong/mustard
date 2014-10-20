@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from flask import Flask, render_template, request
-from youtube_mustard import nice_search
+from clients.youtube_mustard import nice_search
 
 app = Flask(__name__)
 

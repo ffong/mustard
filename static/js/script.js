@@ -1,19 +1,26 @@
 var ytplayer;
 
-function addToPlaylist(videoId) {
-	$('.play-box').append(videoId);
-	// embed player 
+function addInfoToPlaylist(result) {
+	var title = $(result).find('span:first').text();
+	// $(".playlist").append(
+	// 	title
+	// );
+}
+
+function addToPlaylist(result) {
+	addInfoToPlaylist(result);
+	var videoId = $(result).find('.add-song').attr('alt')
 	initYTPlayer(videoId);
 };
 
 function onYouTubePlayerReady() {
-	ytplayer = document.getElementById("myytplayer");
+	$(".spinner").remove();
+	ytplayer = $("#myytplayer");
 	ytplayer.playVideo();
 }
 
 function play() {
 	if (ytplayer) {
-		events.push('playVideo();');
 		ytplayer.playVideo();
 	}
 }
@@ -29,12 +36,18 @@ function initYTPlayer(videoId) {
     var atts = { id: "myytplayer" };
     var videourl = "http://www.youtube.com/v/" + videoId + "?enablejsapi=1&playerapiid=ytplayer&version=3"
     swfobject.embedSWF(videourl, "ytapiplayer", "425", "356", "8", null, null, params, atts);
+
+    // start the spinner
+    $(".controls").append(
+    	"<div class=\"spinner\"> \
+  		<div class=\"double-bounce1\"></div> \
+  		<div class=\"double-bounce2\"></div> \
+		</div>");
 }
 
 $(document).ready(function() {
 	$(".add-song").on("click", function() {
-		var videoId = $(this).attr('alt');
-		addToPlaylist(videoId);		
+		addToPlaylist(this.parentElement);		
 	});
 
 	
