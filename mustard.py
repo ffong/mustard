@@ -16,5 +16,6 @@ def search():
 	return render_template('index.html', search_results=search_results)
 
 if __name__ == "__main__":
+	app.debug = True
 	app.run()
 
