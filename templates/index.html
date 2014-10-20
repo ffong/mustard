@@ -7,6 +7,7 @@
 
 		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/swfobject.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 	</head>
 	<body>
@@ -46,11 +47,11 @@
 				    <li class="list-group-item">
 				    	<img src="{{ result['image'] }}" title="{{ result['description'] }}">
 				    	<span>{{ result['title'] }}</span>
-				    	<a href="http://youtu.be/{{ result['videoId'] }}">
+				    	<a href="http://youtu.be/{{ result['videoId'] }}" target="__blank">
 				    		<button class="btn btn-default btn-xs">Watch on YouTube</button>
 				    	</a>
-				    	<button class="btn btn-default btn-xs add-song">
-				    		 <span class="glyphicon glyphicon-plus" alt="{{ result['videoId'] }}"></span>
+				    	<button class="btn btn-default btn-xs add-song" alt="{{ result['videoId'] }}">
+				    		 <span class="glyphicon glyphicon-plus"></span>
 				    		 Add
 				    	</button>
 				    </li>
@@ -61,6 +62,17 @@
 		</div>
 
 		<div class="col-md-4 play-box">
+			<div class="controls">
+				<button class="btn btn-default play">
+	    			<a href="javascript:void(0);" onclick="play();"><span class="glyphicon glyphicon-play"></span></a>
+		    	</button>
+		    	<button class="btn btn-default pause">
+	    			<a href="javascript:void(0);" onclick="pause();"><span class="glyphicon glyphicon-pause"></span></a>
+		    	</button>
+			</div>
+			<div id="ytapiplayer">
+    			You need Flash player 8+ and JavaScript enabled to view this video.
+  			</div>
 		</div>
 </body>
 </html>
