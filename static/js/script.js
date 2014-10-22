@@ -1,22 +1,69 @@
-var ytplayer;
+var ytplayer = false;
+var playlist = [];
+var index = 0;
+var state = -10;
+
+function updateProgressBar() {
+	if (state == 1) {
+		window.setInterval(function() {
+			bar = $(".progress");	
+			elapsed_time = (ytplayer.getCurrentTime() / 60).toPrecision(5).split('.').join(':');
+			$('.time').html(elapsed_time);
+			var progress = ytplayer.getCurrentTime() / ytplayer.getDuration() * 100;
+			bar.val(progress);
+		}, 1000);
+	}
+}
+
+function seekProgressBar() {
+	seek_val = ($(".progress").val() / 100)　* ytplayer.getDuration();
+	ytplayer.seekTo(seek_val);
+}
 
 function addInfoToPlaylist(result) {
 	var title = $(result).find('span:first').text();
-	// $(".playlist").append(
-	// 	title
-	// );
+	$(".playlist").append(
+		"<li>" + title + "</li>"
+	);
 }
 
 function addToPlaylist(result) {
-	addInfoToPlaylist(result);
 	var videoId = $(result).find('.add-song').attr('alt')
-	initYTPlayer(videoId);
+	addInfoToPlaylist(result);
+	playlist.push(videoId);
+
+	// not initialized yet
+	if (!ytplayer) { 
+		initYTPlayer(videoId); 
+	} else if (ytplayer.getPlayerState() == 0) {
+	// stopped right now
+		nextSong();
+	} 
+
 };
 
 function onYouTubePlayerReady() {
 	$(".spinner").remove();
-	ytplayer = $("#myytplayer");
-	ytplayer.playVideo();
+	ytplayer = document.getElementById("myytplayer"); // doesn't work with jquery?
+	ytplayer.addEventListener("onStateChange", "nextSong"); 
+	state = ytplayer.getPlayerState();
+	play();
+}
+
+function nextSong(new_state) {
+	state = new_state;
+	if (state == 0) {
+		// if ended
+		if (playlist.length == index) {
+			console.log('No more songs.');
+		} else {
+			index += 1;
+			console.log('Loading next song.')
+			ytplayer.loadVideoById(playlist[index]);
+		}
+	} 
+
+	updateProgressBar();
 }
 
 function play() {
@@ -50,5 +97,5 @@ $(document).ready(function() {
 		addToPlaylist(this.parentElement);		
 	});
 
-	
+
 });

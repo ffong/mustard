@@ -69,8 +69,11 @@
 		    	<button class="btn btn-default pause">
 	    			<a href="javascript:void(0);" onclick="pause();"><span class="glyphicon glyphicon-pause"></span></a>
 		    	</button>
-		    	<input type="range" name="duration" min="1" max="100" data-highlight="true">
+		    	<span class="time pull-right"></span>
+		    	<input type="range" class="progress" value="1" onmouseup="seekProgressBar()" min="1" max="100" data-highlight="true">
 			</div>
+			<ul class="playlist">
+			</ul>
 			<div id="ytapiplayer"></div>
 		</div>
 </body>
